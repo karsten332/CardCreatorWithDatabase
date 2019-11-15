@@ -38,7 +38,9 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonCreateCardMethod()
         {
-            RaisePropertyChanged("");
+            //RaisePropertyChanged("");
+
+            CardCreator.CreateCard(NameText);
             
             //TestText = "faen";
 
