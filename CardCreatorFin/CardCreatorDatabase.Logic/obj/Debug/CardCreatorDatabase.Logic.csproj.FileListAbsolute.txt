@@ -1,0 +1,17 @@
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Logic.exe.config
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Logic.exe
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Logic.pdb
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Data.exe
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Domain.exe
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\EntityFramework.dll
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\EntityFramework.SqlServer.dll
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Data.pdb
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Data.exe.config
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Domain.pdb
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\CardCreatorDatabase.Domain.exe.config
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\EntityFramework.xml
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\obj\Debug\CardCreatorDatabase.Logic.csprojAssemblyReference.cache
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\obj\Debug\CardCreatorDatabase.Logic.csproj.CopyComplete
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\obj\Debug\CardCreatorDatabase.Logic.exe
+D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Logic\obj\Debug\CardCreatorDatabase.Logic.pdb

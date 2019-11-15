@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CardCreatorDatabase.Domain
+{
+    public class Card
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public Type1 Type { get; set; }
+
+        public int ManaCost { get; set; }
+
+        public int AttackPower { get; set; }
+
+        public int Hp { get; set; }
+
+        // PowerLevel = -1;//PowerLevel = (AttackPower + Hp) % ManaCost;
+        public float PowerLevel { get; set; }
+
+
+        // BattleCry, spesial effect, DeathRattle, Image
+    }
+}
