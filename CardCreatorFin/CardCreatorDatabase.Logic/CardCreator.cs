@@ -10,7 +10,7 @@ namespace CardCreatorDatabase.Logic
 {
    public class CardCreator
     {
-        public void CreateCard()
+        public void CreateCard(string name, int manaCost = -1,int attackPower = -1, int hp = -1)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
@@ -20,11 +20,11 @@ namespace CardCreatorDatabase.Logic
                 {
                     var newCard = new Card()
                     {
-                        Name = "Wardruid Klara2",
+                        Name = name,
                         Type = type,
-                        ManaCost = 3,
-                        AttackPower = 1,
-                        Hp = 2,
+                        ManaCost = manaCost,
+                        AttackPower = attackPower,
+                        Hp = hp,
                         PowerLevel = -1
                     };
                     context.Cards.Add(newCard);
@@ -32,5 +32,18 @@ namespace CardCreatorDatabase.Logic
                 }
             }
         }
+
+        public void CardExcits()
+        {
+
+        }
+
+        public void DeleteCard()
+        {
+
+        }
+
+        
+        
     }
 }

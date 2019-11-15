@@ -1,5 +1,9 @@
 using GalaSoft.MvvmLight;
 using CardCreatorDatabase.Logic;
+using System.Windows.Input;
+using CardCreatorFin.Model;
+using GalaSoft.MvvmLight.Command;
+using System.Windows;
 
 namespace CardCreatorFin.ViewModel
 {
@@ -17,28 +21,73 @@ namespace CardCreatorFin.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-         CardCreator CardCreator = new CardCreator();
+        private DataModel model;
+        CardCreator CardCreator = new CardCreator();
+        public ICommand ClickButtonCreateCard { get; private set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-            ///
             //TypeCreator.CreateType();
-            CardCreator.CreateCard();
+            model = new DataModel();
+            ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
 
 
         }
 
-       
+        private void ClickButtonCreateCardMethod()
+        {
+            RaisePropertyChanged("");
+            
+            //TestText = "faen";
+
+            MessageBox.Show(NameText);
+        }
+
+        private bool CanExecuteClickButton()
+        {
+            return true;
+        }
+        // members 
+        public string NameText
+        {
+            get { return model.NameText; }
+            set { model.NameText = value; }
+        }
+
+        public string TypeText
+        {
+            get { return model.TypeText; }
+            set { model.TypeText = value; }
+        }
+
+        public int AttackText
+        {
+            get { return model.AttackText; }
+            set { model.AttackText = value; }
+        }
+
+        public int HpText
+        {
+            get { return model.HpText; }
+            set { model.HpText = value; }
+        }
+
+        public int ManaCostText
+        {
+            get { return model.ManaCostText; }
+            set { model.ManaCostText = value; }
+        }
+
+        public int PowerLevelText
+        {
+            get { return model.PowerLevelText; }
+            set { model.PowerLevelText = value; }
+        }
+
+
+
 
     }
 }

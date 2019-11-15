@@ -11,7 +11,7 @@
         <Canvas HorizontalAlignment="Left" Height="854" Margin="607,25,0,0" VerticalAlignment="Top" Width="385">
             <Border BorderBrush="Black" BorderThickness="2" Height="854" Width="385"/>
             <Button Content="Load" Canvas.Left="62" Canvas.Top="47" Width="75"/>
-            <Button Content="Save" Canvas.Left="38" Canvas.Top="773" Width="75"/>
+            <Button Content="Save" Canvas.Left="38" Canvas.Top="773" Width="75" Command="{Binding ClickButtonCreateCard}"/>
             <Button Content="Reload" Canvas.Left="268" Canvas.Top="773" Width="75"/>
             <Button Content="Import" Canvas.Left="233" Canvas.Top="47" Width="75"/>
             <Button Content="Export" Canvas.Left="147" Canvas.Top="773" Width="75"/>
