@@ -21,19 +21,29 @@ namespace CardCreatorFin.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        #region Members
         private DataModel model;
         CardCreator CardCreator = new CardCreator();
+        #endregion
         public ICommand ClickButtonCreateCard { get; private set; }
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        public ICommand ClickButtonCreateType { get; private set; }
+        
+        #region Constructor
         public MainViewModel()
         {
             //TypeCreator.CreateType();
             model = new DataModel();
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
+            ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
 
+        }
+        #endregion
+        #region Commands
+        // Create type
 
+        private void ClickButtonCreateTypeMethod()
+        {
+            TypeCreator.CreateType(CreateTypeNameText);
         }
 
         private void ClickButtonCreateCardMethod()
@@ -51,8 +61,18 @@ namespace CardCreatorFin.ViewModel
         {
             return true;
         }
-
+        #endregion
         #region Properties
+
+        // Create type
+
+        
+        public string CreateTypeNameText
+        {
+            get { return model.CreateTypeNameText; }
+            set { model.CreateTypeNameText = value; }
+        }
+
         public string NameText
         {
             get { return model.NameText; }

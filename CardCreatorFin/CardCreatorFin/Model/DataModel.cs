@@ -11,7 +11,12 @@ namespace CardCreatorFin.Model
         public DataModel()
         {
             NameText = "Hello";
+            CreateTypeNameText = "Enter Type Name";
         }
+
+        // Create type 
+        public string CreateTypeNameText { get; set; }
+        
         public string NameText { get; set; }
 
         public string TypeText { get; set; }

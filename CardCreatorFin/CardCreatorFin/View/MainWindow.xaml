@@ -35,8 +35,16 @@
             <Border BorderBrush="Black" BorderThickness="1" Height="215" Width="516">
 
 
+
+
             </Border>
-            <Label Content="Types:" Canvas.Left="23" Canvas.Top="22" Width="125"/>
+            <Label Content="Type:" Canvas.Left="23" Canvas.Top="22" Width="125"/>
+            <Label Content="Type Name:" Canvas.Left="72" Canvas.Top="53"/>
+            <Label Content="Max PowerLevel:" Canvas.Left="72" Canvas.Top="92"/>
+            <Label Content="Min PowerLevel:" Canvas.Left="72" Canvas.Top="123"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding CreateTypeNameText}" Canvas.Left="167" Canvas.Top="57" Width="104"/>
+            <Button Content="Create Type" Canvas.Left="167" Canvas.Top="176" Width="117" Command="{Binding ClickButtonCreateType}"/>
+
         </Canvas>
 
 
