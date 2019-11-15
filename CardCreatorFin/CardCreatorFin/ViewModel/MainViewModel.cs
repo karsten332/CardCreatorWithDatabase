@@ -17,6 +17,7 @@ namespace CardCreatorFin.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+         CardCreator CardCreator = new CardCreator();
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -31,8 +32,10 @@ namespace CardCreatorFin.ViewModel
             ////    // Code runs "for real"
             ////}
             ///
-            TypeCreator.CreateType();
-            
+            //TypeCreator.CreateType();
+            CardCreator.CreateCard();
+
+
         }
 
        

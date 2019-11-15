@@ -11,11 +11,11 @@ namespace CardCreatorDatabase.Logic
 {
   public static class TypeCreator
     {
-        static public void CreateType()
+        static public void CreateType( string typeName)
         {
             var newType = new Type1()
             {
-                Name = "Test"
+                Name = typeName
             };
 
             using (DatabaseContext context = new DatabaseContext())
@@ -30,29 +30,8 @@ namespace CardCreatorDatabase.Logic
             }
         }
     }
-    /* 
-     *
-        public void CreateCard()
-        {
-            using (DatabaseContext context = new DatabaseContext())
-            {
-                var type = context.Types.Find(1);
-
-                if (type != null)
-                {
-                    var newCard = new Card()
-                    {
-                        Name = "Wardruid Klara",
-                        Type = type,
-                        ManaCost = 3,
-                        AttackPower = 1,
-                        Hp = 2,
-                        PowerLevel = -1
-                    };
-                    context.Cards.Add(newCard);
-                    context.SaveChanges();
-                }
-            }
-        }
-        */
+   
+     
+        
+        
 }
