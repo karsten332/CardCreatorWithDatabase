@@ -51,7 +51,8 @@ namespace CardCreatorFin.ViewModel
         {
             return true;
         }
-        // members 
+
+        #region Properties
         public string NameText
         {
             get { return model.NameText; }
@@ -88,7 +89,7 @@ namespace CardCreatorFin.ViewModel
             set { model.PowerLevelText = value; }
         }
 
-
+        #endregion
 
 
     }
