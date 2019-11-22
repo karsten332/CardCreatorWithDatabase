@@ -125,6 +125,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\CardCreatorDatabase.Domain\CardCreatorDatabase.Domain.csproj">
+      <Project>{644b4366-77e2-414e-808e-7b96fb707b8b}</Project>
+      <Name>CardCreatorDatabase.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CardCreatorDatabase.Logic\CardCreatorDatabase.Logic.csproj">
       <Project>{0d014da5-f912-47ac-9b9b-f958170a472c}</Project>
       <Name>CardCreatorDatabase.Logic</Name>

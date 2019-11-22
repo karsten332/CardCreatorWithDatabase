@@ -4,6 +4,8 @@ using System.Windows.Input;
 using CardCreatorFin.Model;
 using GalaSoft.MvvmLight.Command;
 using System.Windows;
+using System.Collections.ObjectModel;
+using CardCreatorDatabase.Domain;
 
 namespace CardCreatorFin.ViewModel
 {
@@ -24,7 +26,17 @@ namespace CardCreatorFin.ViewModel
         #region Members
         private DataModel model;
         CardCreator CardCreator = new CardCreator();
+
+        private ObservableCollection<Type1> _typeList;
+
         #endregion
+        public ObservableCollection<Type1> TypeList
+        {
+            get { return _typeList; }
+            set { _typeList = value;
+            }
+        }
+
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
         
@@ -35,6 +47,12 @@ namespace CardCreatorFin.ViewModel
             model = new DataModel();
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
+
+            TypeList = new ObservableCollection<Type1>()
+            {
+                new Type1(){Id=1, Name="Normal"},
+                new Type1(){Id=2, Name="Spescial"}
+            };
 
         }
         #endregion
@@ -79,11 +97,7 @@ namespace CardCreatorFin.ViewModel
             set { model.NameText = value; }
         }
 
-        public string TypeText
-        {
-            get { return model.TypeText; }
-            set { model.TypeText = value; }
-        }
+
 
         public int AttackText
         {

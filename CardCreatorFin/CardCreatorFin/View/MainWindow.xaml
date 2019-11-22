@@ -9,7 +9,9 @@
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="854" Margin="607,25,0,0" VerticalAlignment="Top" Width="385">
-            <Border BorderBrush="Black" BorderThickness="2" Height="854" Width="385"/>
+            <Border BorderBrush="Black" BorderThickness="2" Height="854" Width="385">
+
+            </Border>
             <Button Content="Load" Canvas.Left="62" Canvas.Top="47" Width="75"/>
             <Button Content="Save" Canvas.Left="38" Canvas.Top="773" Width="75" Command="{Binding ClickButtonCreateCard}"/>
             <Button Content="Reload" Canvas.Left="268" Canvas.Top="773" Width="75"/>
@@ -23,7 +25,7 @@
             <Label Content="Mana Cost:" Canvas.Left="62" Canvas.Top="522" Height="29" Width="75"/>
             <Label Content="Power Leve:l" Canvas.Left="62" Canvas.Top="567" Height="29" Width="75"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding NameText}" Canvas.Top="316" Width="120"/>
-            <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding TypeText}" Canvas.Top="368" Width="120"/>
+            <ComboBox ItemsSource="{Binding TypeList}" SelectedItem="{Binding TypeText, Mode=TwoWay}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="33" Canvas.Left="154" Canvas.Top="358"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding AttackText}" Canvas.Top="417" Width="120"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding HpText}" Canvas.Top="470" Width="120"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding ManaCostText}" Canvas.Top="526" Width="120"/>
@@ -46,6 +48,8 @@
             <Button Content="Create Type" Canvas.Left="167" Canvas.Top="176" Width="117" Command="{Binding ClickButtonCreateType}"/>
 
         </Canvas>
+
+
 
 
 

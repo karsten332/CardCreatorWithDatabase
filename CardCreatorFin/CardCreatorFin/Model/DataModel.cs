@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CardCreatorDatabase.Domain;
 
 namespace CardCreatorFin.Model
 {
@@ -11,7 +12,7 @@ namespace CardCreatorFin.Model
         public DataModel()
         {
             NameText = "Hello";
-            CreateTypeNameText = "Enter Type Name";
+            CreateTypeNameText = "Enter Type Name"; 
         }
 
         // Create type 
@@ -19,7 +20,6 @@ namespace CardCreatorFin.Model
         
         public string NameText { get; set; }
 
-        public string TypeText { get; set; }
         public int AttackText { get; set; }
         public int HpText { get; set; }
         public int ManaCostText { get; set; }
