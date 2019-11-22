@@ -29,6 +29,15 @@ namespace CardCreatorDatabase.Logic
                 }
             }
         }
+
+        static public List<Type1> GetTypeList()
+        {
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                return context.Types.ToList();
+                
+            }
+        }
     }
    
      

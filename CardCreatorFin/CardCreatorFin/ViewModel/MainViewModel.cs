@@ -48,11 +48,11 @@ namespace CardCreatorFin.ViewModel
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
 
-            TypeList = new ObservableCollection<Type1>()
-            {
-                new Type1(){Id=1, Name="Normal"},
-                new Type1(){Id=2, Name="Spescial"}
-            };
+            // Test
+
+
+            TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
+            
 
         }
         #endregion
@@ -68,11 +68,12 @@ namespace CardCreatorFin.ViewModel
         {
             //RaisePropertyChanged("");
 
-            CardCreator.CreateCard(NameText);
-            
-            //TestText = "faen";
+           // CardCreator.CreateCard(NameText);
 
-            MessageBox.Show(NameText);
+
+           string TestText = TypeList[1].Name;
+
+            MessageBox.Show(TestText);
         }
 
         private bool CanExecuteClickButton()
