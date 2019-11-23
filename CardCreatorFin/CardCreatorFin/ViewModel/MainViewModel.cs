@@ -7,6 +7,8 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using CardCreatorDatabase.Domain;
 using CardCreatorDatabase.Data;
+using Microsoft.Win32;
+using System.IO;
 
 namespace CardCreatorFin.ViewModel
 {
@@ -86,9 +88,25 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonLoadImageMethod()
         {
+            OpenFileDialog openfileDialog = new OpenFileDialog();
+            if(openfileDialog.ShowDialog() == true)
+            {
+                string filePath = openfileDialog.FileName;
+                if (ValidateImageFileType(filePath))
+                {
+                    ImageSourceText = openfileDialog.FileName;
 
+                    RaisePropertyChanged("");
+                } else
+                {
+                    MessageBox.Show("Invalid file type, only jpeg,jpg or png");
+                }
+                
+            }
+            /*
             ImageSourceText = "/Images/redSquare.png";
             RaisePropertyChanged("");
+            */
         }
 
         private bool CanExecuteClickButton()
@@ -137,6 +155,26 @@ namespace CardCreatorFin.ViewModel
 
         }
 
+        private bool ValidateImageFileType(string pathToValdiate)
+        {
+            string result = Path.GetExtension(pathToValdiate);
+            switch (result)
+            {
+                case ".png":
+                    return true;
+                case ".jpeg":
+                    return true;
+                case ".JPG":
+                    return true;
+                case ".jpg":
+                    return true;
+
+                default:      
+                    break;
+            }
+            return false;
+            
+        }
         // Create type
 
 
