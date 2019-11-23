@@ -57,7 +57,8 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonCreateTypeMethod()
         {
-            TypeCreator.CreateType(CreateTypeNameText);
+            TypeCreator.CreateType(CreateTypeNameText,TypeMinStatText,TypeMaxStatText);
+            ClearAllCreateTypeFields();
         }
 
         private void ClickButtonCreateCardMethod()
@@ -66,6 +67,7 @@ namespace CardCreatorFin.ViewModel
             if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
             {
                 CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ManaCostText, AttackText, HpText);
+                ClearAllCreateCardFields();
             } else
             {
                 MessageBox.Show("The attackpower Value is invalid, try again");
@@ -86,7 +88,19 @@ namespace CardCreatorFin.ViewModel
         #endregion
         #region Properties
 
-        private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
+        // Create Type helpers
+        private void ClearAllCreateTypeFields()
+        {
+            CreateTypeNameText = "";
+            TypeMinStatText = 0;
+            TypeMaxStatText = 0;
+
+            RaisePropertyChanged("");
+        }
+
+
+            // Card creator helper methods
+            private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
         {
             if (attackpower <= selectedType.MinStat)
             {
@@ -99,6 +113,18 @@ namespace CardCreatorFin.ViewModel
             }
 
             return true;
+        }
+
+        private void ClearAllCreateCardFields()
+        {
+            NameText = "";
+            //SelectedTypeIdText
+            ManaCostText = 0;
+            AttackText = 0;
+            HpText = 0;
+
+            RaisePropertyChanged("");
+
         }
 
         // Create type
