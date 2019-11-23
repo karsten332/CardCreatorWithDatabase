@@ -12,7 +12,7 @@ namespace CardCreatorDatabase.Domain
 
         public string Name { get; set; }
 
-        //public string ImageURL { get; set; }
+        public string ImageURL { get; set; }
 
         public Type1 Type { get; set; }
 

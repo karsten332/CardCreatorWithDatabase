@@ -10,7 +10,7 @@ namespace CardCreatorDatabase.Logic
 {
    public class CardCreator
     {
-        public void CreateCard(string name, int selectedTypeId, int manaCost = -1,int attackPower = -1, int hp = -1)
+        public void CreateCard(string name, int selectedTypeId, string imageURL= "none", int manaCost = -1,int attackPower = -1, int hp = -1)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
@@ -22,6 +22,7 @@ namespace CardCreatorDatabase.Logic
                         {
                             Name = name,
                             Type = selectedtype,
+                            ImageURL = imageURL,
                             ManaCost = manaCost,
                             AttackPower = attackPower,
                             Hp = hp,

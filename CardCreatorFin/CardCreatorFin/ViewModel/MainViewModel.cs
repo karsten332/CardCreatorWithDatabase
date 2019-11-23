@@ -49,10 +49,7 @@ namespace CardCreatorFin.ViewModel
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
             ClickButtonLoadImage = new RelayCommand(ClickButtonLoadImageMethod, CanExecuteClickButton);
 
-            // Test
-
-
-            TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
+            UpdateTypeList();
             //DatabaseContext context = new DatabaseContext();
 
         }
@@ -63,6 +60,8 @@ namespace CardCreatorFin.ViewModel
         private void ClickButtonCreateTypeMethod()
         {
             TypeCreator.CreateType(CreateTypeNameText,TypeMinStatText,TypeMaxStatText);
+
+            UpdateTypeList();
             ClearAllCreateTypeFields();
         }
 
@@ -71,7 +70,7 @@ namespace CardCreatorFin.ViewModel
             //RaisePropertyChanged("");
             if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
             {
-                CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ManaCostText, AttackText, HpText);
+                CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText,ManaCostText, AttackText, HpText);
                 ClearAllCreateCardFields();
             } else
             {
@@ -95,18 +94,13 @@ namespace CardCreatorFin.ViewModel
                 if (ValidateImageFileType(filePath))
                 {
                     ImageSourceText = openfileDialog.FileName;
-
-                    RaisePropertyChanged("");
+                    RaisePropertyChanged("ImageSourceText");
                 } else
                 {
                     MessageBox.Show("Invalid file type, only jpeg,jpg or png");
                 }
                 
             }
-            /*
-            ImageSourceText = "/Images/redSquare.png";
-            RaisePropertyChanged("");
-            */
         }
 
         private bool CanExecuteClickButton()
@@ -128,6 +122,10 @@ namespace CardCreatorFin.ViewModel
 
 
             // Card creator helper methods
+            private void UpdateTypeList()
+            {
+            TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
+            }
             private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
         {
             if (attackpower <= selectedType.MinStat)
@@ -147,6 +145,7 @@ namespace CardCreatorFin.ViewModel
         {
             NameText = "";
             //SelectedTypeIdText
+            ImageSourceText = "";
             ManaCostText = 0;
             AttackText = 0;
             HpText = 0;
