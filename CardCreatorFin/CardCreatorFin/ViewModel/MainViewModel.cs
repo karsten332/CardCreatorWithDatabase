@@ -27,15 +27,10 @@ namespace CardCreatorFin.ViewModel
         private DataModel model;
         CardCreator CardCreator = new CardCreator();
 
-        private ObservableCollection<Type1> _typeList;
+        
 
         #endregion
-        public ObservableCollection<Type1> TypeList
-        {
-            get { return _typeList; }
-            set { _typeList = value;
-            }
-        }
+
 
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
@@ -68,10 +63,11 @@ namespace CardCreatorFin.ViewModel
         {
             //RaisePropertyChanged("");
 
-           // CardCreator.CreateCard(NameText);
+            // CardCreator.CreateCard(NameText);
 
 
-           string TestText = TypeList[1].Name;
+            string TestText = SelectedTypeIdText.Id.ToString(); //TypeList[1].Name;
+
 
             MessageBox.Show(TestText);
         }
@@ -91,6 +87,8 @@ namespace CardCreatorFin.ViewModel
             get { return model.CreateTypeNameText; }
             set { model.CreateTypeNameText = value; }
         }
+        // Create Card
+
 
         public string NameText
         {
@@ -98,6 +96,23 @@ namespace CardCreatorFin.ViewModel
             set { model.NameText = value; }
         }
 
+        public ObservableCollection<Type1> TypeList
+        {
+            get { return model._typeList; }
+            set
+            {
+                model._typeList = value;
+            }
+        }
+
+        public Type1 SelectedTypeIdText
+        {
+            get { return model.SelectedTypeId; }
+            set
+            {
+                model.SelectedTypeId = value;
+            }
+        } 
 
 
         public int AttackText
