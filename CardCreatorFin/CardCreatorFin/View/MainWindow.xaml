@@ -17,7 +17,8 @@
             <Button Content="Reload" Canvas.Left="268" Canvas.Top="773" Width="75"/>
             <Button Content="Import" Canvas.Left="233" Canvas.Top="47" Width="75"/>
             <Button Content="Export" Canvas.Left="147" Canvas.Top="773" Width="75"/>
-            <Image Height="194" Canvas.Left="92" Canvas.Top="102" Width="182"/>
+            <Button Content="Load Image" Canvas.Left="103" Canvas.Top="287" Width="171" Command="{Binding ClickButtonLoadImage}" />
+            <Image Height="194" Canvas.Left="92" Canvas.Top="77" Width="182" Source="{Binding ImageSourceText}"/>
             <Label Content="Name" Canvas.Left="62" Canvas.Top="312" Height="29" Width="75"/>
             <Label Content="Type:" Canvas.Left="62" Canvas.Top="362" Height="29" Width="75"/>
             <Label Content="Attk:" Canvas.Left="62" Canvas.Top="417" Height="29" Width="75"/>
@@ -30,6 +31,7 @@
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding HpText}" Canvas.Top="470" Width="120"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding ManaCostText}" Canvas.Top="526" Width="120"/>
             <TextBox Height="23" Canvas.Left="154" TextWrapping="Wrap" Text="{Binding PowerLevelText}" Canvas.Top="571" Width="120"/>
+            
 
         </Canvas>
         <Canvas HorizontalAlignment="Left" Height="215" Margin="53,57,0,0" VerticalAlignment="Top" Width="516">
@@ -48,7 +50,7 @@
             <TextBox Height="23" Canvas.Left="175" TextWrapping="Wrap" Text="{Binding TypeMinStatText}"  Canvas.Top="95" Width="120"/>
             <TextBox Height="23" Canvas.Left="175" TextWrapping="Wrap" Text="{Binding TypeMaxStatText}" Canvas.Top="127" Width="120"/>
             <Button Content="Create Type" Canvas.Left="167" Canvas.Top="176" Width="117" Command="{Binding ClickButtonCreateType}"/>
-           
+
 
 
         </Canvas>

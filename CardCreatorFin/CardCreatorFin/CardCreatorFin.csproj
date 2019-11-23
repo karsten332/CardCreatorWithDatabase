@@ -123,7 +123,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\redSquare.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CardCreatorDatabase.Data\CardCreatorDatabase.Data.csproj">
       <Project>{db86848d-ed0e-42bd-a5dd-2cc28fcb7bb8}</Project>

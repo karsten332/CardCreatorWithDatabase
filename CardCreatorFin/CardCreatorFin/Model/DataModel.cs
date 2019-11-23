@@ -27,6 +27,9 @@ namespace CardCreatorFin.Model
 
         public System.Collections.ObjectModel.ObservableCollection<Type1> _typeList;
 
+        // Image
+        public string ImageSourceText { get; set; }
+
         public Type1 SelectedTypeId { get; set; }
         public int AttackText { get; set; }
         public int HpText { get; set; }

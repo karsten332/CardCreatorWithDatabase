@@ -35,7 +35,9 @@ namespace CardCreatorFin.ViewModel
 
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
-        
+        // own viewmodel
+        public ICommand ClickButtonLoadImage { get; private set; }
+
         #region Constructor
         public MainViewModel()
         {
@@ -43,6 +45,7 @@ namespace CardCreatorFin.ViewModel
             model = new DataModel();
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
+            ClickButtonLoadImage = new RelayCommand(ClickButtonLoadImageMethod, CanExecuteClickButton);
 
             // Test
 
@@ -79,6 +82,13 @@ namespace CardCreatorFin.ViewModel
 
 
             //MessageBox.Show(TestText);
+        }
+
+        private void ClickButtonLoadImageMethod()
+        {
+
+            ImageSourceText = "/Images/redSquare.png";
+            RaisePropertyChanged("");
         }
 
         private bool CanExecuteClickButton()
@@ -163,6 +173,12 @@ namespace CardCreatorFin.ViewModel
             {
                 model._typeList = value;
             }
+        }
+
+        public string ImageSourceText
+        {
+            get { return model.ImageSourceText; }
+            set { model.ImageSourceText = value; }
         }
 
         public Type1 SelectedTypeIdText
