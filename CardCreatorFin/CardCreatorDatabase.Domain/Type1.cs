@@ -13,5 +13,8 @@ namespace CardCreatorDatabase.Domain
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public int MinStat { get; set; }
+        public int MaxStat { get; set; }
+
     }
 }

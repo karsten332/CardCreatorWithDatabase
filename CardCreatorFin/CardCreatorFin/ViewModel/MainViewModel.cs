@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows;
 using System.Collections.ObjectModel;
 using CardCreatorDatabase.Domain;
+using CardCreatorDatabase.Data;
 
 namespace CardCreatorFin.ViewModel
 {
@@ -47,7 +48,7 @@ namespace CardCreatorFin.ViewModel
 
 
             TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
-            
+            //DatabaseContext context = new DatabaseContext();
 
         }
         #endregion
@@ -62,14 +63,20 @@ namespace CardCreatorFin.ViewModel
         private void ClickButtonCreateCardMethod()
         {
             //RaisePropertyChanged("");
-
-            // CardCreator.CreateCard(NameText);
+            if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
+            {
+                CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ManaCostText, AttackText, HpText);
+            } else
+            {
+                MessageBox.Show("The attackpower Value is invalid, try again");
+            }
+           
 
 
             string TestText = SelectedTypeIdText.Id.ToString(); //TypeList[1].Name;
 
 
-            MessageBox.Show(TestText);
+            //MessageBox.Show(TestText);
         }
 
         private bool CanExecuteClickButton()
@@ -79,13 +86,40 @@ namespace CardCreatorFin.ViewModel
         #endregion
         #region Properties
 
+        private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
+        {
+            if (attackpower <= selectedType.MinStat)
+            {
+                return false;
+            }
+
+            if (attackpower > selectedType.MaxStat)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // Create type
 
-        
+
         public string CreateTypeNameText
         {
             get { return model.CreateTypeNameText; }
             set { model.CreateTypeNameText = value; }
+        }
+
+        public int TypeMinStatText
+        {
+            get { return model.TypeMinStatText; }
+            set { model.TypeMinStatText = value; }
+        }
+
+        public int TypeMaxStatText
+        {
+            get { return model.TypeMaxStatText; }
+            set { model.TypeMaxStatText = value; }
         }
         // Create Card
 

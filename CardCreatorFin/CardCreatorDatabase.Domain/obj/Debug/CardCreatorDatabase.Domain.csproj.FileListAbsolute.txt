@@ -9,3 +9,14 @@ D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.Sq
 D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.xml
 D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.SqlServer.xml
 D:\Dev\c#\CardCreatorFin\CardCreatorDatabase.Domain\obj\Debug\CardCreatorDatabase.Domain.csproj.CopyComplete
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\CardCreatorDatabase.Domain.exe.config
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\CardCreatorDatabase.Domain.exe
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\CardCreatorDatabase.Domain.pdb
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.dll
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.SqlServer.dll
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.xml
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\obj\Debug\CardCreatorDatabase.Domain.csprojAssemblyReference.cache
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\obj\Debug\CardCreatorDatabase.Domain.csproj.CopyComplete
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\obj\Debug\CardCreatorDatabase.Domain.exe
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorDatabase.Domain\obj\Debug\CardCreatorDatabase.Domain.pdb

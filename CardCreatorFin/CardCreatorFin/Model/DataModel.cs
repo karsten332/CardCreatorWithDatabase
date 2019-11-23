@@ -17,7 +17,12 @@ namespace CardCreatorFin.Model
 
         // Create type 
         public string CreateTypeNameText { get; set; }
-        
+
+        public int TypeMinStatText { get; set; }
+
+        public int TypeMaxStatText { get; set; }
+
+        // Create Card
         public string NameText { get; set; }
 
         public System.Collections.ObjectModel.ObservableCollection<Type1> _typeList;

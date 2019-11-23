@@ -10,26 +10,28 @@ namespace CardCreatorDatabase.Logic
 {
    public class CardCreator
     {
-        public void CreateCard(string name, int manaCost = -1,int attackPower = -1, int hp = -1)
+        public void CreateCard(string name, int selectedTypeId, int manaCost = -1,int attackPower = -1, int hp = -1)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                var type = context.Types.Find(2);
+                var selectedtype = context.Types.Find(selectedTypeId);
 
-                if (type != null)
-                {
-                    var newCard = new Card()
-                    {
-                        Name = name,
-                        Type = type,
-                        ManaCost = manaCost,
-                        AttackPower = attackPower,
-                        Hp = hp,
-                        PowerLevel = -1
-                    };
-                    context.Cards.Add(newCard);
-                    context.SaveChanges();
+                if (selectedtype != null)
+                {                   
+                   var newCard = new Card()
+                        {
+                            Name = name,
+                            Type = selectedtype,
+                            ManaCost = manaCost,
+                            AttackPower = attackPower,
+                            Hp = hp,
+                            PowerLevel = -1
+                        };
+                        context.Cards.Add(newCard);
+                        context.SaveChanges();
+                    
                 }
+               
             }
         }
 
@@ -42,6 +44,7 @@ namespace CardCreatorDatabase.Logic
         {
 
         }
+
 
         
         

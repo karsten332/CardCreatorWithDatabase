@@ -15,7 +15,7 @@ namespace CardCreatorDatabase.Data
 
 
         public DatabaseContext(): base("CardDatabase2"){
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
+            Database.SetInitializer<DatabaseContext>(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
         }
         /*
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
