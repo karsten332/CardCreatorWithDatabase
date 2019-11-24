@@ -80,3 +80,5 @@ D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\obj\Debug\CardCr
 D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\obj\Debug\CardCreatorFin.csproj.CopyComplete
 D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\obj\Debug\CardCreatorFin.exe
 D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\obj\Debug\CardCreatorFin.pdb
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\c#\CardCreatorWithDatabase\CardCreatorFin\CardCreatorFin\bin\Debug\Newtonsoft.Json.xml

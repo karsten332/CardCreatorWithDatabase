@@ -9,6 +9,7 @@ using CardCreatorDatabase.Domain;
 using CardCreatorDatabase.Data;
 using Microsoft.Win32;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace CardCreatorFin.ViewModel
 {
@@ -54,7 +55,7 @@ namespace CardCreatorFin.ViewModel
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
             ClickButtonLoadImage = new RelayCommand(ClickButtonLoadImageMethod, CanExecuteClickButton);
-            ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton);
+            ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton); // gir type = null!
             ClickButtonImportCardJSON = new RelayCommand(ClickButtonImportCardJSONMethod, CanExecuteClickButton);
             ClickButtonExportCardJSON = new RelayCommand(ClickButtonExportCardJSONMethod, CanExecuteClickButton);
 
@@ -133,12 +134,39 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonImportCardJSONMethod()
         {
+            string cardToImport;
+            cardToImport = File.ReadAllText(@"Card.json");
+            Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
+            //MessageBox.Show(resultCard.Name + resultCard.Id);
+            NameText = resultCard.Name;
+            SelectedTypeIdText = resultCard.Type;
+            ImageSourceText = resultCard.ImageURL;
+            ManaCostText = resultCard.ManaCost;
+            AttackText = resultCard.AttackPower;
+            HpText = resultCard.Hp;
+            PowerLevelText = (int)resultCard.PowerLevel;
+            RaisePropertyChanged("");
 
         }
 
         private void ClickButtonExportCardJSONMethod()
         {
-
+            // mye fra youtube video
+            Card cardtoExport = new Card()
+            {
+                Name = NameText,
+                Type = SelectedTypeIdText,
+                ImageURL = ImageSourceText,
+                ManaCost = ManaCostText,
+                AttackPower = AttackText,
+                Hp = HpText,
+                PowerLevel = PowerLevelText
+            };
+            string result = JsonConvert.SerializeObject(cardtoExport);
+            ClearAllCreateCardFields();
+            //MessageBox.Show(result);
+            File.WriteAllText(@"Card.json", result);
+            
         }
 
         private bool CanExecuteClickButton()
