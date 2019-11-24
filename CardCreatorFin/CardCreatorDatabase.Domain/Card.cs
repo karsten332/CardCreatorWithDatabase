@@ -14,7 +14,7 @@ namespace CardCreatorDatabase.Domain
 
         public string ImageURL { get; set; }
 
-        public Type1 Type { get; set; }
+        public int TypeId { get; set; }
 
         public int ManaCost { get; set; }
 

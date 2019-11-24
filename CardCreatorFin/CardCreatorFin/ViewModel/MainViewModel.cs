@@ -83,9 +83,10 @@ namespace CardCreatorFin.ViewModel
         {
             // bytte navn på variable til selectedcardText
             //MessageBox.Show(SelectedCardIdText.Name);
+            
             ImageSourceText = SelectedCardIdText.ImageURL;
             NameText = SelectedCardIdText.Name;
-            SelectedTypeIdText = TypeList[SelectedCardIdText.Type.Id - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
+            SelectedTypeIdText = TypeList[SelectedCardIdText.TypeId - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
             AttackText = SelectedCardIdText.AttackPower;
             HpText = SelectedCardIdText.Hp;
             ManaCostText = SelectedCardIdText.ManaCost;
@@ -148,7 +149,7 @@ namespace CardCreatorFin.ViewModel
                     Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
                     //MessageBox.Show(resultCard.Name + resultCard.Id);
                     NameText = resultCard.Name;
-                    SelectedTypeIdText = TypeList[resultCard.Type.Id -1]; // hack for å få index som begynner på null til å funke med id som starte på 1
+                    SelectedTypeIdText = TypeList[resultCard.TypeId -1]; // hack for å få index som begynner på null til å funke med id som starte på 1
                     ImageSourceText = resultCard.ImageURL;
                     ManaCostText = resultCard.ManaCost;
                     AttackText = resultCard.AttackPower;
@@ -180,7 +181,7 @@ namespace CardCreatorFin.ViewModel
             Card cardtoExport = new Card()
             {
                 Name = NameText,
-                Type = SelectedTypeIdText,
+                TypeId = SelectedTypeIdText.Id,
                 ImageURL = ImageSourceText,
                 ManaCost = ManaCostText,
                 AttackPower = AttackText,
@@ -196,7 +197,10 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonDeleteCardMethod()
         {
-            MessageBox.Show("Not implemented");
+            //MessageBox.Show("Not implemented");
+            CardCreator.DeleteCard(SelectedCardIdText.Id);
+            UpdateCardList();
+            ClearAllCreateCardFields();
         }
 
         private bool CanExecuteClickButton()

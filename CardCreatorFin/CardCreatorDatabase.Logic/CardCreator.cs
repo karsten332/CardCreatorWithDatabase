@@ -21,7 +21,7 @@ namespace CardCreatorDatabase.Logic
                    var newCard = new Card()
                         {
                             Name = name,
-                            Type = selectedtype,
+                            TypeId = selectedTypeId,
                             ImageURL = imageURL,
                             ManaCost = manaCost,
                             AttackPower = attackPower,
@@ -41,9 +41,18 @@ namespace CardCreatorDatabase.Logic
 
         }
 
-        public void DeleteCard()
+        public void DeleteCard(int cardId)
         {
-
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                /*
+                IQueryable<Card> card = context.Cards.Where(c => c.Id == cardId)
+                context.Cards.Attach(card);
+                context.Cards.Remove(card);
+                */
+                context.Cards.Remove(context.Cards.Find(cardId));
+                context.SaveChanges();
+            }
         }
 
          public List<Card> GetCardList()
