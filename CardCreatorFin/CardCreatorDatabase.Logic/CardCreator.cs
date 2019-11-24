@@ -46,8 +46,19 @@ namespace CardCreatorDatabase.Logic
 
         }
 
+         public List<Card> GetCardList()
+        {
 
-        
-        
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                return context.Cards.ToList();
+
+            }
+
+        }
+
+
+
+
     }
 }

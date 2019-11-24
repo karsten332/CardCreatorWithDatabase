@@ -23,6 +23,10 @@ namespace CardCreatorFin.Model
         public int TypeMaxStatText { get; set; }
 
         // Create Card
+        public System.Collections.ObjectModel.ObservableCollection<Card> _cardList;
+
+        public Card SelectedCardId { get; set; }
+
         public string NameText { get; set; }
 
         public System.Collections.ObjectModel.ObservableCollection<Type1> _typeList;

@@ -37,8 +37,14 @@ namespace CardCreatorFin.ViewModel
 
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
+
+        public ICommand ClickButtonLoadCard { get; private set; }
         // own viewmodel
         public ICommand ClickButtonLoadImage { get; private set; }
+        public ICommand ClickButtonImportCardJSON { get; private set; }
+
+        public ICommand ClickButtonExportCardJSON { get; private set; }
+
 
         #region Constructor
         public MainViewModel()
@@ -48,8 +54,13 @@ namespace CardCreatorFin.ViewModel
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
             ClickButtonLoadImage = new RelayCommand(ClickButtonLoadImageMethod, CanExecuteClickButton);
+            ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton);
+            ClickButtonImportCardJSON = new RelayCommand(ClickButtonImportCardJSONMethod, CanExecuteClickButton);
+            ClickButtonExportCardJSON = new RelayCommand(ClickButtonExportCardJSONMethod, CanExecuteClickButton);
+
 
             UpdateTypeList();
+            UpdateCardList();
             //DatabaseContext context = new DatabaseContext();
 
         }
@@ -64,13 +75,30 @@ namespace CardCreatorFin.ViewModel
             UpdateTypeList();
             ClearAllCreateTypeFields();
         }
+        // Create Card
 
+        private void ClickButtonLoadCardMethod()
+        {
+            // bytte navn på variable til selectedcardText
+            //MessageBox.Show(SelectedCardIdText.Name);
+            ImageSourceText = SelectedCardIdText.ImageURL;
+            NameText = SelectedCardIdText.Name;
+            SelectedTypeIdText = SelectedCardIdText.Type; // mmby broken
+            AttackText = SelectedCardIdText.AttackPower;
+            HpText = SelectedCardIdText.Hp;
+            ManaCostText = SelectedCardIdText.ManaCost;
+            PowerLevelText = (int)SelectedCardIdText.PowerLevel; // endre det!
+            RaisePropertyChanged("");
+
+
+        }
         private void ClickButtonCreateCardMethod()
         {
             //RaisePropertyChanged("");
             if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
             {
                 CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText,ManaCostText, AttackText, HpText);
+                UpdateCardList();
                 ClearAllCreateCardFields();
             } else
             {
@@ -103,6 +131,16 @@ namespace CardCreatorFin.ViewModel
             }
         }
 
+        private void ClickButtonImportCardJSONMethod()
+        {
+
+        }
+
+        private void ClickButtonExportCardJSONMethod()
+        {
+
+        }
+
         private bool CanExecuteClickButton()
         {
             return true;
@@ -126,7 +164,12 @@ namespace CardCreatorFin.ViewModel
             {
             TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
             }
-            private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
+
+        private void UpdateCardList()
+        {
+            CardList = new ObservableCollection<Card>(CardCreator.GetCardList());
+        }
+        private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
         {
             if (attackpower <= selectedType.MinStat)
             {
@@ -161,12 +204,15 @@ namespace CardCreatorFin.ViewModel
             {
                 case ".png":
                     return true;
+                case ".PNG":
+                    return true;
                 case ".jpeg":
                     return true;
                 case ".JPG":
                     return true;
                 case ".jpg":
                     return true;
+               
 
                 default:      
                     break;
@@ -197,11 +243,31 @@ namespace CardCreatorFin.ViewModel
         // Create Card
 
 
+
         public string NameText
         {
             get { return model.NameText; }
             set { model.NameText = value; }
         }
+
+        public ObservableCollection<Card> CardList
+        {
+            get { return model._cardList; }
+            set
+            {
+                model._cardList = value;
+            }
+        }
+
+        public Card SelectedCardIdText
+        {
+            get { return model.SelectedCardId; }
+            set
+            {
+                model.SelectedCardId = value;
+            }
+        }
+
 
         public ObservableCollection<Type1> TypeList
         {
@@ -212,12 +278,6 @@ namespace CardCreatorFin.ViewModel
             }
         }
 
-        public string ImageSourceText
-        {
-            get { return model.ImageSourceText; }
-            set { model.ImageSourceText = value; }
-        }
-
         public Type1 SelectedTypeIdText
         {
             get { return model.SelectedTypeId; }
@@ -225,7 +285,15 @@ namespace CardCreatorFin.ViewModel
             {
                 model.SelectedTypeId = value;
             }
-        } 
+        }
+
+        public string ImageSourceText
+        {
+            get { return model.ImageSourceText; }
+            set { model.ImageSourceText = value; }
+        }
+
+
 
 
         public int AttackText
