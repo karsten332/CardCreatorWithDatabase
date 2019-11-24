@@ -23,7 +23,7 @@ namespace CardCreatorDatabase.Domain
         public int Hp { get; set; }
 
         // PowerLevel = -1;//PowerLevel = (AttackPower + Hp) % ManaCost;
-        public float PowerLevel { get; set; }
+        public int PowerLevel { get; set; }
 
 
         // BattleCry, spesial effect, DeathRattle, Image

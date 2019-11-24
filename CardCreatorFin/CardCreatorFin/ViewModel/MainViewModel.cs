@@ -38,14 +38,11 @@ namespace CardCreatorFin.ViewModel
 
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
-
         public ICommand ClickButtonLoadCard { get; private set; }
         // own viewmodel
         public ICommand ClickButtonLoadImage { get; private set; }
         public ICommand ClickButtonImportCardJSON { get; private set; }
-
         public ICommand ClickButtonExportCardJSON { get; private set; }
-
         public ICommand ClickButtonDeleteCard { get; private set; }
 
 
@@ -64,6 +61,7 @@ namespace CardCreatorFin.ViewModel
 
             UpdateTypeList();
             UpdateCardList();
+            Card test = CardCreator.GetCard();
             //DatabaseContext context = new DatabaseContext();
 
         }
@@ -77,6 +75,7 @@ namespace CardCreatorFin.ViewModel
 
             UpdateTypeList();
             ClearAllCreateTypeFields();
+           
         }
         // Create Card
 
@@ -86,13 +85,13 @@ namespace CardCreatorFin.ViewModel
             //MessageBox.Show(SelectedCardIdText.Name);
             ImageSourceText = SelectedCardIdText.ImageURL;
             NameText = SelectedCardIdText.Name;
-            SelectedTypeIdText = SelectedCardIdText.Type; // mmby broken
+            SelectedTypeIdText = TypeList[SelectedCardIdText.Type.Id - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
             AttackText = SelectedCardIdText.AttackPower;
             HpText = SelectedCardIdText.Hp;
             ManaCostText = SelectedCardIdText.ManaCost;
-            PowerLevelText = (int)SelectedCardIdText.PowerLevel; // endre det!
+            PowerLevelText = SelectedCardIdText.PowerLevel;
             RaisePropertyChanged("");
-
+            //MessageBox.Show(SelectedCardIdText.Type.Name); // null value
 
         }
         private void ClickButtonCreateCardMethod()
@@ -147,14 +146,16 @@ namespace CardCreatorFin.ViewModel
                     cardToImport = File.ReadAllText(filePath);
 
                     Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
-                    MessageBox.Show(resultCard.Name + resultCard.Id);
+                    //MessageBox.Show(resultCard.Name + resultCard.Id);
                     NameText = resultCard.Name;
-                    SelectedTypeIdText = resultCard.Type;
+                    SelectedTypeIdText = TypeList[resultCard.Type.Id -1]; // hack for å få index som begynner på null til å funke med id som starte på 1
                     ImageSourceText = resultCard.ImageURL;
                     ManaCostText = resultCard.ManaCost;
                     AttackText = resultCard.AttackPower;
                     HpText = resultCard.Hp;
-                    PowerLevelText = (int)resultCard.PowerLevel;
+                    PowerLevelText = resultCard.PowerLevel;
+
+                    //MessageBox.Show(SelectedTypeIdText.Name); 
 
                     RaisePropertyChanged("");
                 } else

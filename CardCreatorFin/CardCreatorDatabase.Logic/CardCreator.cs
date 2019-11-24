@@ -14,7 +14,7 @@ namespace CardCreatorDatabase.Logic
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                var selectedtype = context.Types.Find(selectedTypeId);
+                Type1 selectedtype = context.Types.Find(selectedTypeId);
 
                 if (selectedtype != null)
                 {                   
@@ -51,12 +51,24 @@ namespace CardCreatorDatabase.Logic
 
             using (DatabaseContext context = new DatabaseContext())
             {
+               
+                //return context.Cards.ToList();
                 return context.Cards.ToList();
 
             }
-
         }
 
+        public Card GetCard()
+        {
+        
+
+            using (DatabaseContext context = new DatabaseContext())
+            {
+
+                return context.Cards.Find(1);
+
+            }
+        }
 
 
 
