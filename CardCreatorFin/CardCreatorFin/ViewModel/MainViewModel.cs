@@ -46,6 +46,8 @@ namespace CardCreatorFin.ViewModel
 
         public ICommand ClickButtonExportCardJSON { get; private set; }
 
+        public ICommand ClickButtonDeleteCard { get; private set; }
+
 
         #region Constructor
         public MainViewModel()
@@ -58,7 +60,7 @@ namespace CardCreatorFin.ViewModel
             ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton); // gir type = null!
             ClickButtonImportCardJSON = new RelayCommand(ClickButtonImportCardJSONMethod, CanExecuteClickButton);
             ClickButtonExportCardJSON = new RelayCommand(ClickButtonExportCardJSONMethod, CanExecuteClickButton);
-
+            ClickButtonDeleteCard = new RelayCommand(ClickButtonDeleteCardMethod, CanExecuteClickButton);
 
             UpdateTypeList();
             UpdateCardList();
@@ -134,18 +136,40 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonImportCardJSONMethod()
         {
-            string cardToImport;
-            cardToImport = File.ReadAllText(@"Card.json");
-            Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
-            //MessageBox.Show(resultCard.Name + resultCard.Id);
-            NameText = resultCard.Name;
-            SelectedTypeIdText = resultCard.Type;
-            ImageSourceText = resultCard.ImageURL;
-            ManaCostText = resultCard.ManaCost;
-            AttackText = resultCard.AttackPower;
-            HpText = resultCard.Hp;
-            PowerLevelText = (int)resultCard.PowerLevel;
-            RaisePropertyChanged("");
+            OpenFileDialog openfileDialog = new OpenFileDialog();
+            if(openfileDialog.ShowDialog() == true)
+            {
+                string filePath = openfileDialog.FileName;
+                if (ValidateCardFileType(filePath))
+                {
+
+                    string cardToImport;
+                    cardToImport = File.ReadAllText(filePath);
+
+                    Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
+                    MessageBox.Show(resultCard.Name + resultCard.Id);
+                    NameText = resultCard.Name;
+                    SelectedTypeIdText = resultCard.Type;
+                    ImageSourceText = resultCard.ImageURL;
+                    ManaCostText = resultCard.ManaCost;
+                    AttackText = resultCard.AttackPower;
+                    HpText = resultCard.Hp;
+                    PowerLevelText = (int)resultCard.PowerLevel;
+
+                    RaisePropertyChanged("");
+                } else
+                {
+                    MessageBox.Show("Invalid file type, only json and JSON");
+                }
+                
+            }
+            
+
+           
+
+           
+
+
 
         }
 
@@ -167,6 +191,11 @@ namespace CardCreatorFin.ViewModel
             //MessageBox.Show(result);
             File.WriteAllText(@"Card.json", result);
             
+        }
+
+        private void ClickButtonDeleteCardMethod()
+        {
+            MessageBox.Show("Not implemented");
         }
 
         private bool CanExecuteClickButton()
@@ -222,6 +251,22 @@ namespace CardCreatorFin.ViewModel
             HpText = 0;
 
             RaisePropertyChanged("");
+
+        }
+
+        private bool ValidateCardFileType(string pathToValdiate)
+        {
+            string result = Path.GetExtension(pathToValdiate);
+            switch (result)
+            {
+                case ".json":
+                    return true;
+                case ".JSON":
+                    return true;
+                default:
+                    break;
+            }
+            return false;
 
         }
 
