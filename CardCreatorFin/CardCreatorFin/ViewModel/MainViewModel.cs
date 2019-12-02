@@ -92,7 +92,6 @@ namespace CardCreatorFin.ViewModel
             ManaCostText = SelectedCardIdText.ManaCost;
             PowerLevelText = SelectedCardIdText.PowerLevel;
             RaisePropertyChanged("");
-            //MessageBox.Show(SelectedCardIdText.Type.Name); // null value
 
         }
         private void ClickButtonCreateCardMethod()
@@ -117,15 +116,8 @@ namespace CardCreatorFin.ViewModel
             }
             else
             {
-                MessageBox.Show("The attackpower Value is invalid for this type, try again");
+
             }
-
-
-
-            string TestText = SelectedTypeIdText.Id.ToString(); //TypeList[1].Name;
-
-
-            //MessageBox.Show(TestText);
         }
 
         private void ClickButtonLoadImageMethod()
@@ -244,11 +236,13 @@ namespace CardCreatorFin.ViewModel
         {
             if (attackpower <= selectedType.MinStat)
             {
+                MessageBox.Show("The attackpower Value is lower than " + selectedType.MinStat + "Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
                 return false;
             }
 
-            if (attackpower > selectedType.MaxStat)
+            if (attackpower >= selectedType.MaxStat)
             {
+                MessageBox.Show("The attackpower Value is higher than the maximum." + " Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
                 return false;
             }
 

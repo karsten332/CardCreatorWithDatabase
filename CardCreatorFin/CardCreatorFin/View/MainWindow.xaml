@@ -46,9 +46,9 @@
             </Border>
             <Label Content="Type:" Canvas.Left="23" Canvas.Top="22" Width="125"/>
             <Label Content="Type Name:" Canvas.Left="72" Canvas.Top="53"/>
-            <Label Content="Max PowerLevel:" Canvas.Left="72" Canvas.Top="92"/>
-            <Label Content="Min PowerLevel:" Canvas.Left="72" Canvas.Top="123"/>
-            <TextBox TextWrapping="Wrap" Text="{Binding CreateTypeNameText}" Canvas.Left="175" Canvas.Top="61" Width="104"/>
+            <Label Content="Max Attack Power:" Canvas.Left="68" Canvas.Top="92"/>
+            <Label Content="Min Attack Power:" Canvas.Left="68" Canvas.Top="123"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding CreateTypeNameText}" Canvas.Left="175" Canvas.Top="61" Width="120" Height="26"/>
             <TextBox Height="23" Canvas.Left="175" TextWrapping="Wrap" Text="{Binding TypeMaxStatText}"  Canvas.Top="95" Width="120"/>
             <TextBox Height="23" Canvas.Left="175" TextWrapping="Wrap" Text="{Binding TypeMinStatText}" Canvas.Top="127" Width="120"/>
             <Button Content="Create Type" Canvas.Left="167" Canvas.Top="176" Width="117" Command="{Binding ClickButtonCreateType}"/>

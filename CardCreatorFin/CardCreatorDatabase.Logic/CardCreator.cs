@@ -10,8 +10,9 @@ namespace CardCreatorDatabase.Logic
 {
     public class CardCreator
     {
-        public Card CreateCard(string name, int selectedTypeId, string imageURL = "none", int manaCost = -1, int attackPower = -1, int hp = -1)
+        public Card CreateCard(string name, int selectedTypeId, string imageURL = "none", int manaCost = 0, int attackPower = 0, int hp = 0)
         {
+           int powerLevel =  CalculatePowerLevel(hp, attackPower, manaCost);
             var newCard = new Card()
             {
                 Name = name,
@@ -20,11 +21,16 @@ namespace CardCreatorDatabase.Logic
                 ManaCost = manaCost,
                 AttackPower = attackPower,
                 Hp = hp,
-                PowerLevel = -1
+                PowerLevel = powerLevel
             };
 
             return newCard;
 
+        }
+       // Powerlevel (hp + attackpower) / manacost
+        private int CalculatePowerLevel(int hp, int attackPower,int manaCost)
+        {
+           return (hp + attackPower) / manaCost;
         }
         public void AddNewCardToDatabase(Card newCard)
         {
@@ -76,7 +82,6 @@ namespace CardCreatorDatabase.Logic
                 {
                     return false;
                 }
-                //context.SaveChanges();
             }
         }
 
@@ -84,11 +89,6 @@ namespace CardCreatorDatabase.Logic
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                /*
-                IQueryable<Card> card = context.Cards.Where(c => c.Id == cardId)
-                context.Cards.Attach(card);
-                context.Cards.Remove(card);
-                */
                 context.Cards.Remove(context.Cards.Find(cardId));
                 context.SaveChanges();
             }
