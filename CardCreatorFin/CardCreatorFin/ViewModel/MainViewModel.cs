@@ -6,40 +6,25 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows;
 using System.Collections.ObjectModel;
 using CardCreatorDatabase.Domain;
-using CardCreatorDatabase.Data;
 using Microsoft.Win32;
 using System.IO;
 using Newtonsoft.Json;
 
 namespace CardCreatorFin.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         #region Members
-        private DataModel model;
-        CardCreator CardCreator = new CardCreator();
+        private CardModel cardDataModel;
+        private TypeDataModel typeDataModel;
+        CardHandler CardCreator = new CardHandler();
         public int CurrentCardId { get; set; } = -1;
 
 
         #endregion
-
-
         public ICommand ClickButtonCreateCard { get; private set; }
         public ICommand ClickButtonCreateType { get; private set; }
         public ICommand ClickButtonLoadCard { get; private set; }
-        // own viewmodel
         public ICommand ClickButtonLoadImage { get; private set; }
         public ICommand ClickButtonImportCardJSON { get; private set; }
         public ICommand ClickButtonExportCardJSON { get; private set; }
@@ -49,19 +34,19 @@ namespace CardCreatorFin.ViewModel
         #region Constructor
         public MainViewModel()
         {
-            //TypeCreator.CreateType();
-            model = new DataModel();
+            cardDataModel = new CardModel();
+            typeDataModel = new TypeDataModel();
+
             ClickButtonCreateCard = new RelayCommand(ClickButtonCreateCardMethod, CanExecuteClickButton);
             ClickButtonCreateType = new RelayCommand(ClickButtonCreateTypeMethod, CanExecuteClickButton);
             ClickButtonLoadImage = new RelayCommand(ClickButtonLoadImageMethod, CanExecuteClickButton);
-            ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton); // gir type = null!
+            ClickButtonLoadCard = new RelayCommand(ClickButtonLoadCardMethod, CanExecuteClickButton);
             ClickButtonImportCardJSON = new RelayCommand(ClickButtonImportCardJSONMethod, CanExecuteClickButton);
             ClickButtonExportCardJSON = new RelayCommand(ClickButtonExportCardJSONMethod, CanExecuteClickButton);
             ClickButtonDeleteCard = new RelayCommand(ClickButtonDeleteCardMethod, CanExecuteClickButton);
 
             UpdateTypeList();
             UpdateCardList();
-            //DatabaseContext context = new DatabaseContext();
 
         }
         #endregion
@@ -70,7 +55,7 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonCreateTypeMethod()
         {
-            TypeCreator.CreateType(CreateTypeNameText, TypeMinStatText, TypeMaxStatText);
+            TypeHandler.CreateType(CreateTypeNameText, TypeMinStatText, TypeMaxStatText);
 
             UpdateTypeList();
             ClearAllCreateTypeFields();
@@ -80,17 +65,15 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonLoadCardMethod()
         {
-            // bytte navn på variable til selectedcardText
-            //MessageBox.Show(SelectedCardIdText.Name);
 
-            CurrentCardId = SelectedCardIdText.Id;
-            ImageSourceText = SelectedCardIdText.ImageURL;
-            NameText = SelectedCardIdText.Name;
-            SelectedTypeIdText = TypeList[SelectedCardIdText.TypeId - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
-            AttackText = SelectedCardIdText.AttackPower;
-            HpText = SelectedCardIdText.Hp;
-            ManaCostText = SelectedCardIdText.ManaCost;
-            PowerLevelText = SelectedCardIdText.PowerLevel;
+            CurrentCardId = SelectedCard.Id;
+            ImageSourceText = SelectedCard.ImageURL;
+            NameText = SelectedCard.Name;
+            SelectedTypeIdText = TypeList[SelectedCard.TypeId - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
+            AttackText = SelectedCard.AttackPower;
+            HpText = SelectedCard.Hp;
+            ManaCostText = SelectedCard.ManaCost;
+            PowerLevelText = SelectedCard.PowerLevel;
             RaisePropertyChanged("");
 
         }
@@ -104,7 +87,6 @@ namespace CardCreatorFin.ViewModel
                 if (CardCreator.CardExists(CurrentCardId))
                 {
                     CardCreator.ModifyCard(newCard, CurrentCardId);
-
                 }
                 else
                 {
@@ -126,7 +108,7 @@ namespace CardCreatorFin.ViewModel
             if (openfileDialog.ShowDialog() == true)
             {
                 string filePath = openfileDialog.FileName;
-                if (ValidateImageFileType(filePath))
+                if (FileValidator.ValidateImageFileType(filePath))
                 {
                     ImageSourceText = openfileDialog.FileName;
                     RaisePropertyChanged("ImageSourceText");
@@ -145,7 +127,7 @@ namespace CardCreatorFin.ViewModel
             if (openfileDialog.ShowDialog() == true)
             {
                 string filePath = openfileDialog.FileName;
-                if (ValidateCardFileType(filePath))
+                if (FileValidator.ValidateCardFileType(filePath))
                 {
 
                     string cardToImport;
@@ -162,8 +144,6 @@ namespace CardCreatorFin.ViewModel
                     AttackText = resultCard.AttackPower;
                     HpText = resultCard.Hp;
                     PowerLevelText = resultCard.PowerLevel;
-
-                    //MessageBox.Show(SelectedTypeIdText.Name); 
 
                     RaisePropertyChanged("");
                 }
@@ -191,15 +171,13 @@ namespace CardCreatorFin.ViewModel
             };
             string result = JsonConvert.SerializeObject(cardtoExport);
             ClearAllCreateCardFields();
-            //MessageBox.Show(result);
             File.WriteAllText(@"Card.json", result);
 
         }
 
         private void ClickButtonDeleteCardMethod()
         {
-            //MessageBox.Show("Not implemented");
-            CardCreator.DeleteCard(SelectedCardIdText.Id);
+            CardCreator.DeleteCard(SelectedCard.Id);
             UpdateCardList();
             ClearAllCreateCardFields();
         }
@@ -209,9 +187,8 @@ namespace CardCreatorFin.ViewModel
             return true;
         }
         #endregion
-        #region Properties
 
-        // Create Type helpers
+        #region Type Helper Methods
         private void ClearAllCreateTypeFields()
         {
             CreateTypeNameText = "";
@@ -221,11 +198,11 @@ namespace CardCreatorFin.ViewModel
             RaisePropertyChanged("");
         }
 
-
-        // Card creator helper methods
+        #endregion
+        #region Card helper Methods
         private void UpdateTypeList()
         {
-            TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
+            TypeList = new ObservableCollection<Type1>(TypeHandler.GetTypeList());
         }
 
         private void UpdateCardList()
@@ -236,13 +213,15 @@ namespace CardCreatorFin.ViewModel
         {
             if (attackpower <= selectedType.MinStat)
             {
-                MessageBox.Show("The attackpower Value is lower than " + selectedType.MinStat + "Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
+                MessageBox.Show("The attackpower Value is lower than " + selectedType.MinStat +
+                    "Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
                 return false;
             }
 
             if (attackpower >= selectedType.MaxStat)
             {
-                MessageBox.Show("The attackpower Value is higher than the maximum." + " Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
+                MessageBox.Show("The attackpower Value is higher than the maximum." + " Try again with value between "
+                    + selectedType.MinStat + " and " + selectedType.MaxStat);
                 return false;
             }
 
@@ -252,7 +231,6 @@ namespace CardCreatorFin.ViewModel
         private void ClearAllCreateCardFields()
         {
             NameText = "";
-            //SelectedTypeIdText
             ImageSourceText = "";
             ManaCostText = 0;
             AttackText = 0;
@@ -261,65 +239,24 @@ namespace CardCreatorFin.ViewModel
             RaisePropertyChanged("");
 
         }
-
-        private bool ValidateCardFileType(string pathToValdiate)
-        {
-            string result = Path.GetExtension(pathToValdiate);
-            switch (result)
-            {
-                case ".json":
-                    return true;
-                case ".JSON":
-                    return true;
-                default:
-                    break;
-            }
-            return false;
-
-        }
-
-        private bool ValidateImageFileType(string pathToValdiate)
-        {
-            string result = Path.GetExtension(pathToValdiate);
-            switch (result)
-            {
-                case ".png":
-                    return true;
-                case ".PNG":
-                    return true;
-                case ".jpeg":
-                    return true;
-                case ".JPG":
-                    return true;
-                case ".jpg":
-                    return true;
-
-
-                default:
-                    break;
-            }
-            return false;
-
-        }
-        // Create type
-
-
+        #endregion
+        #region Properties
         public string CreateTypeNameText
         {
-            get { return model.CreateTypeNameText; }
-            set { model.CreateTypeNameText = value; }
+            get { return typeDataModel.CreateTypeNameText; }
+            set { typeDataModel.CreateTypeNameText = value; }
         }
 
         public int TypeMinStatText
         {
-            get { return model.TypeMinStatText; }
-            set { model.TypeMinStatText = value; }
+            get { return typeDataModel.TypeMinStatText; }
+            set { typeDataModel.TypeMinStatText = value; }
         }
 
         public int TypeMaxStatText
         {
-            get { return model.TypeMaxStatText; }
-            set { model.TypeMaxStatText = value; }
+            get { return typeDataModel.TypeMaxStatText; }
+            set { typeDataModel.TypeMaxStatText = value; }
         }
         // Create Card
 
@@ -327,51 +264,51 @@ namespace CardCreatorFin.ViewModel
 
         public string NameText
         {
-            get { return model.NameText; }
-            set { model.NameText = value; }
+            get { return cardDataModel.NameText; }
+            set { cardDataModel.NameText = value; }
         }
 
         public ObservableCollection<Card> CardList
         {
-            get { return model._cardList; }
+            get { return cardDataModel._cardList; }
             set
             {
-                model._cardList = value;
+                cardDataModel._cardList = value;
             }
         }
 
-        public Card SelectedCardIdText
+        public Card SelectedCard
         {
-            get { return model.SelectedCardId; }
+            get { return cardDataModel.SelectedCardId; }
             set
             {
-                model.SelectedCardId = value;
+                cardDataModel.SelectedCardId = value;
             }
         }
 
 
         public ObservableCollection<Type1> TypeList
         {
-            get { return model._typeList; }
+            get { return cardDataModel._typeList; }
             set
             {
-                model._typeList = value;
+                cardDataModel._typeList = value;
             }
         }
 
         public Type1 SelectedTypeIdText
         {
-            get { return model.SelectedTypeId; }
+            get { return cardDataModel.SelectedTypeId; }
             set
             {
-                model.SelectedTypeId = value;
+                cardDataModel.SelectedTypeId = value;
             }
         }
 
         public string ImageSourceText
         {
-            get { return model.ImageSourceText; }
-            set { model.ImageSourceText = value; }
+            get { return cardDataModel.ImageSourceText; }
+            set { cardDataModel.ImageSourceText = value; }
         }
 
 
@@ -379,26 +316,26 @@ namespace CardCreatorFin.ViewModel
 
         public int AttackText
         {
-            get { return model.AttackText; }
-            set { model.AttackText = value; }
+            get { return cardDataModel.AttackText; }
+            set { cardDataModel.AttackText = value; }
         }
 
         public int HpText
         {
-            get { return model.HpText; }
-            set { model.HpText = value; }
+            get { return cardDataModel.HpText; }
+            set { cardDataModel.HpText = value; }
         }
 
         public int ManaCostText
         {
-            get { return model.ManaCostText; }
-            set { model.ManaCostText = value; }
+            get { return cardDataModel.ManaCostText; }
+            set { cardDataModel.ManaCostText = value; }
         }
 
         public int PowerLevelText
         {
-            get { return model.PowerLevelText; }
-            set { model.PowerLevelText = value; }
+            get { return cardDataModel.PowerLevelText; }
+            set { cardDataModel.PowerLevelText = value; }
         }
 
         #endregion

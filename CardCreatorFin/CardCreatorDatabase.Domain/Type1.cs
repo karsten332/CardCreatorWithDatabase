@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CardCreatorDatabase.Domain
 {
-    // legge til min og max stats
     public class Type1
     {
 

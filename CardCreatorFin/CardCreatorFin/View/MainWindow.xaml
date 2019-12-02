@@ -10,16 +10,16 @@
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="854" Margin="607,25,0,0" VerticalAlignment="Top" Width="385">
             <Border BorderBrush="Black" BorderThickness="2" Height="854" Width="385">
-                
+
 
             </Border>
             <Button Content="Load" Canvas.Left="268" Canvas.Top="103" Width="75" Command="{Binding ClickButtonLoadCard}"/>
-            <Button Content="Save" Canvas.Left="10" Canvas.Top="773" Width="75" Command="{Binding ClickButtonCreateCard}"/>
-            <Button Content="Reload" Canvas.Left="282" Canvas.Top="773" Width="75"/>
-            <Button Content="Import" Canvas.Left="268" Canvas.Top="48" Width="75" Command="{Binding ClickButtonImportCardJSON}"/>
-            <Button Content="Export" Canvas.Left="188" Canvas.Top="773" Width="75" Command="{Binding ClickButtonExportCardJSON}"/>
+            <Button Content="Save" Canvas.Left="36" Canvas.Top="773" Width="75" Command="{Binding ClickButtonCreateCard}"/>
+
+            <Button Content="Import" Canvas.Left="36" Canvas.Top="40" Width="307" Command="{Binding ClickButtonImportCardJSON}" Height="28"/>
+            <Button Content="Export" Canvas.Left="268" Canvas.Top="773" Width="75" Command="{Binding ClickButtonExportCardJSON}"/>
             <Button Content="Load Image" Canvas.Left="103" Canvas.Top="374" Width="171" Command="{Binding ClickButtonLoadImage}" />
-            <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Canvas.Left="103" Canvas.Top="773" Command="{Binding ClickButtonDeleteCard}"/>
+            <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Canvas.Left="154" Canvas.Top="773" Command="{Binding ClickButtonDeleteCard}"/>
             <Image Height="194" Canvas.Left="92" Canvas.Top="165" Width="182" Source="{Binding ImageSourceText}"/>
             <Label Content="Name" Canvas.Left="62" Canvas.Top="414" Height="29" Width="75"/>
             <Label Content="Type:" Canvas.Left="62" Canvas.Top="472" Height="29" Width="75"/>
@@ -56,7 +56,7 @@
 
 
         </Canvas>
-        <ComboBox  ItemsSource="{Binding CardList}" Text="Navigate cards in database" SelectedItem="{Binding SelectedCardIdText, Mode=TwoWay}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="677,129,0,0" VerticalAlignment="Top" Width="184" IsEditable="True"/>
+        <ComboBox  ItemsSource="{Binding CardList}" Text="Navigate cards in database" SelectedItem="{Binding SelectedCard, Mode=TwoWay}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="677,129,0,0" VerticalAlignment="Top" Width="184" IsEditable="True"/>
 
 
 

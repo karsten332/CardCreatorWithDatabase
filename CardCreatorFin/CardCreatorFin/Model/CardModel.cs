@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using CardCreatorDatabase.Domain;
 
 namespace CardCreatorFin.Model
 {
-   public class DataModel
+    public class CardModel
     {
-        public DataModel()
+        public CardModel()
         {
             NameText = "Hello";
-            CreateTypeNameText = "Enter Type Name"; 
         }
-
-        // Create type 
-        public string CreateTypeNameText { get; set; }
-
-        public int TypeMinStatText { get; set; }
-
-        public int TypeMaxStatText { get; set; }
 
         // Create Card
         public System.Collections.ObjectModel.ObservableCollection<Card> _cardList;
@@ -39,9 +27,5 @@ namespace CardCreatorFin.Model
         public int HpText { get; set; }
         public int ManaCostText { get; set; }
         public int PowerLevelText { get; set; }
-
-
-
-
     }
 }

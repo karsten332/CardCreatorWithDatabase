@@ -9,7 +9,7 @@ using CardCreatorDatabase.Data;
 
 namespace CardCreatorDatabase.Logic
 {
-  public static class TypeCreator
+  public static class TypeHandler
     {
         static public void CreateType( string typeName,int minStat = 0,int maxStat = 99)
         {
@@ -24,11 +24,6 @@ namespace CardCreatorDatabase.Logic
             {
                 context.Types.Add(newType);
                 context.SaveChanges();
-
-                foreach (var item in context.Types)
-                {
-                    //Console.WriteLine("{0} {1}", item.Id, item.Name);
-                }
             }
         }
 

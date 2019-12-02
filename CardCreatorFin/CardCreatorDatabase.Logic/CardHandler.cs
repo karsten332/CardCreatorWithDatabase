@@ -8,11 +8,11 @@ using CardCreatorDatabase.Data;
 
 namespace CardCreatorDatabase.Logic
 {
-    public class CardCreator
+    public class CardHandler
     {
         public Card CreateCard(string name, int selectedTypeId, string imageURL = "none", int manaCost = 0, int attackPower = 0, int hp = 0)
         {
-           int powerLevel =  CalculatePowerLevel(hp, attackPower, manaCost);
+            int powerLevel = CalculatePowerLevel(hp, attackPower, manaCost);
             var newCard = new Card()
             {
                 Name = name,
@@ -27,10 +27,10 @@ namespace CardCreatorDatabase.Logic
             return newCard;
 
         }
-       // Powerlevel (hp + attackpower) / manacost
-        private int CalculatePowerLevel(int hp, int attackPower,int manaCost)
+
+        private int CalculatePowerLevel(int hp, int attackPower, int manaCost)
         {
-           return (hp + attackPower) / manaCost;
+            return (hp + attackPower) / manaCost;
         }
         public void AddNewCardToDatabase(Card newCard)
         {
@@ -46,7 +46,7 @@ namespace CardCreatorDatabase.Logic
 
             }
         }
-        public void ModifyCard(Card modiftedCard,int currentCardId)
+        public void ModifyCard(Card modiftedCard, int currentCardId)
         {
 
             using (DatabaseContext context = new DatabaseContext())
@@ -100,7 +100,6 @@ namespace CardCreatorDatabase.Logic
             using (DatabaseContext context = new DatabaseContext())
             {
 
-                //return context.Cards.ToList();
                 return context.Cards.ToList();
 
             }
