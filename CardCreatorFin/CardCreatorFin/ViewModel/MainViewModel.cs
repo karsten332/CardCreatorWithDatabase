@@ -30,8 +30,8 @@ namespace CardCreatorFin.ViewModel
         #region Members
         private DataModel model;
         CardCreator CardCreator = new CardCreator();
+        public int CurrentCardId { get; set; } = -1;
 
-        
 
         #endregion
 
@@ -61,7 +61,6 @@ namespace CardCreatorFin.ViewModel
 
             UpdateTypeList();
             UpdateCardList();
-            Card test = CardCreator.GetCard();
             //DatabaseContext context = new DatabaseContext();
 
         }
@@ -71,11 +70,11 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonCreateTypeMethod()
         {
-            TypeCreator.CreateType(CreateTypeNameText,TypeMinStatText,TypeMaxStatText);
+            TypeCreator.CreateType(CreateTypeNameText, TypeMinStatText, TypeMaxStatText);
 
             UpdateTypeList();
             ClearAllCreateTypeFields();
-           
+
         }
         // Create Card
 
@@ -83,7 +82,8 @@ namespace CardCreatorFin.ViewModel
         {
             // bytte navn på variable til selectedcardText
             //MessageBox.Show(SelectedCardIdText.Name);
-            
+
+            CurrentCardId = SelectedCardIdText.Id;
             ImageSourceText = SelectedCardIdText.ImageURL;
             NameText = SelectedCardIdText.Name;
             SelectedTypeIdText = TypeList[SelectedCardIdText.TypeId - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
@@ -100,14 +100,26 @@ namespace CardCreatorFin.ViewModel
             //RaisePropertyChanged("");
             if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
             {
-                CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText,ManaCostText, AttackText, HpText);
+                Card newCard = CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText, ManaCostText, AttackText, HpText);
+
+                if (CardCreator.CardExists(CurrentCardId))
+                {
+                    CardCreator.ModifyCard(newCard, CurrentCardId);
+
+                }
+                else
+                {
+                    CardCreator.AddNewCardToDatabase(newCard);
+                }
+
                 UpdateCardList();
                 ClearAllCreateCardFields();
-            } else
-            {
-                MessageBox.Show("The attackpower Value is invalid, try again");
             }
-           
+            else
+            {
+                MessageBox.Show("The attackpower Value is invalid for this type, try again");
+            }
+
 
 
             string TestText = SelectedTypeIdText.Id.ToString(); //TypeList[1].Name;
@@ -119,25 +131,26 @@ namespace CardCreatorFin.ViewModel
         private void ClickButtonLoadImageMethod()
         {
             OpenFileDialog openfileDialog = new OpenFileDialog();
-            if(openfileDialog.ShowDialog() == true)
+            if (openfileDialog.ShowDialog() == true)
             {
                 string filePath = openfileDialog.FileName;
                 if (ValidateImageFileType(filePath))
                 {
                     ImageSourceText = openfileDialog.FileName;
                     RaisePropertyChanged("ImageSourceText");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Invalid file type, only jpeg,jpg or png");
                 }
-                
+
             }
         }
 
         private void ClickButtonImportCardJSONMethod()
         {
             OpenFileDialog openfileDialog = new OpenFileDialog();
-            if(openfileDialog.ShowDialog() == true)
+            if (openfileDialog.ShowDialog() == true)
             {
                 string filePath = openfileDialog.FileName;
                 if (ValidateCardFileType(filePath))
@@ -147,9 +160,11 @@ namespace CardCreatorFin.ViewModel
                     cardToImport = File.ReadAllText(filePath);
 
                     Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
-                    //MessageBox.Show(resultCard.Name + resultCard.Id);
+                    MessageBox.Show(resultCard.Name + resultCard.Id);
+                    // test
+                    CurrentCardId = resultCard.Id;
                     NameText = resultCard.Name;
-                    SelectedTypeIdText = TypeList[resultCard.TypeId -1]; // hack for å få index som begynner på null til å funke med id som starte på 1
+                    SelectedTypeIdText = TypeList[resultCard.TypeId - 1]; // hack for å få index som begynner på null til å funke med id som starte på 1
                     ImageSourceText = resultCard.ImageURL;
                     ManaCostText = resultCard.ManaCost;
                     AttackText = resultCard.AttackPower;
@@ -159,19 +174,13 @@ namespace CardCreatorFin.ViewModel
                     //MessageBox.Show(SelectedTypeIdText.Name); 
 
                     RaisePropertyChanged("");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Invalid file type, only json and JSON");
                 }
-                
+
             }
-            
-
-           
-
-           
-
-
 
         }
 
@@ -192,7 +201,7 @@ namespace CardCreatorFin.ViewModel
             ClearAllCreateCardFields();
             //MessageBox.Show(result);
             File.WriteAllText(@"Card.json", result);
-            
+
         }
 
         private void ClickButtonDeleteCardMethod()
@@ -221,11 +230,11 @@ namespace CardCreatorFin.ViewModel
         }
 
 
-            // Card creator helper methods
-            private void UpdateTypeList()
-            {
+        // Card creator helper methods
+        private void UpdateTypeList()
+        {
             TypeList = new ObservableCollection<Type1>(TypeCreator.GetTypeList());
-            }
+        }
 
         private void UpdateCardList()
         {
@@ -254,7 +263,7 @@ namespace CardCreatorFin.ViewModel
             ManaCostText = 0;
             AttackText = 0;
             HpText = 0;
-
+            CurrentCardId = -1;
             RaisePropertyChanged("");
 
         }
@@ -290,13 +299,13 @@ namespace CardCreatorFin.ViewModel
                     return true;
                 case ".jpg":
                     return true;
-               
 
-                default:      
+
+                default:
                     break;
             }
             return false;
-            
+
         }
         // Create type
 
