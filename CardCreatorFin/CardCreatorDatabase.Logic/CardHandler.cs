@@ -28,6 +28,10 @@ namespace CardCreatorDatabase.Logic
 
         private int CalculatePowerLevel(int hp, int attackPower, int manaCost)
         {
+            if(manaCost == 0)
+            {
+                return hp + attackPower;
+            }
             return (hp + attackPower) / manaCost;
         }
         public void AddNewCardToDatabase(Card newCard)

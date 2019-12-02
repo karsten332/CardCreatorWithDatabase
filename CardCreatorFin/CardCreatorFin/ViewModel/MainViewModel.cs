@@ -80,26 +80,33 @@ namespace CardCreatorFin.ViewModel
         private void ClickButtonCreateCardMethod()
         {
             //RaisePropertyChanged("");
-            if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
+            if(SelectedTypeIdText != null)
             {
-                Card newCard = CardHandler.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText, ManaCostText, AttackText, HpText);
-
-                if (CardHandler.CardExists(CurrentCardId))
+                if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
                 {
-                    CardHandler.ModifyCard(newCard, CurrentCardId);
+                    Card newCard = CardHandler.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText, ManaCostText, AttackText, HpText);
+
+                    if (CardHandler.CardExists(CurrentCardId))
+                    {
+                        CardHandler.ModifyCard(newCard, CurrentCardId);
+                    }
+                    else
+                    {
+                        CardHandler.AddNewCardToDatabase(newCard);
+                    }
+
+                    UpdateCardList();
+                    ClearAllCreateCardFields();
                 }
                 else
                 {
-                    CardHandler.AddNewCardToDatabase(newCard);
+
                 }
-
-                UpdateCardList();
-                ClearAllCreateCardFields();
-            }
-            else
+            } else
             {
-
+                MessageBox.Show("You must choose a type to save an card");
             }
+
         }
 
         private void ClickButtonLoadImageMethod()
@@ -134,7 +141,6 @@ namespace CardCreatorFin.ViewModel
                     cardToImport = File.ReadAllText(filePath);
 
                     Card resultCard = JsonConvert.DeserializeObject<Card>(cardToImport);
-                    MessageBox.Show(resultCard.Name + resultCard.Id);
                     // test
                     CurrentCardId = resultCard.Id;
                     NameText = resultCard.Name;
@@ -211,14 +217,14 @@ namespace CardCreatorFin.ViewModel
         }
         private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
         {
-            if (attackpower <= selectedType.MinStat)
+            if (attackpower < selectedType.MinStat)
             {
                 MessageBox.Show("The attackpower Value is lower than " + selectedType.MinStat +
                     "Try again with value between " + selectedType.MinStat + " and " + selectedType.MaxStat);
                 return false;
             }
 
-            if (attackpower >= selectedType.MaxStat)
+            if (attackpower > selectedType.MaxStat)
             {
                 MessageBox.Show("The attackpower Value is higher than the maximum." + " Try again with value between "
                     + selectedType.MinStat + " and " + selectedType.MaxStat);
