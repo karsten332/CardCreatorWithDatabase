@@ -14,7 +14,7 @@ namespace CardCreatorDatabase.Data
         public DbSet<Type1> Types { get; set; }
 
 
-        public DatabaseContext(): base("CardDatabase12"){
+        public DatabaseContext(): base("CardDatabase2"){
             Database.SetInitializer<DatabaseContext>(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
         }
     }
