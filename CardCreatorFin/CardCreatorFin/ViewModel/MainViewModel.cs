@@ -17,7 +17,7 @@ namespace CardCreatorFin.ViewModel
         #region Members
         private CardModel cardDataModel;
         private TypeDataModel typeDataModel;
-        CardHandler CardCreator = new CardHandler();
+        CardHandler CardHandler = new CardHandler();
         public int CurrentCardId { get; set; } = -1;
 
 
@@ -82,15 +82,15 @@ namespace CardCreatorFin.ViewModel
             //RaisePropertyChanged("");
             if (CheckIfAttackPowerIsValid(AttackText, SelectedTypeIdText))
             {
-                Card newCard = CardCreator.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText, ManaCostText, AttackText, HpText);
+                Card newCard = CardHandler.CreateCard(NameText, SelectedTypeIdText.Id, ImageSourceText, ManaCostText, AttackText, HpText);
 
-                if (CardCreator.CardExists(CurrentCardId))
+                if (CardHandler.CardExists(CurrentCardId))
                 {
-                    CardCreator.ModifyCard(newCard, CurrentCardId);
+                    CardHandler.ModifyCard(newCard, CurrentCardId);
                 }
                 else
                 {
-                    CardCreator.AddNewCardToDatabase(newCard);
+                    CardHandler.AddNewCardToDatabase(newCard);
                 }
 
                 UpdateCardList();
@@ -177,7 +177,7 @@ namespace CardCreatorFin.ViewModel
 
         private void ClickButtonDeleteCardMethod()
         {
-            CardCreator.DeleteCard(SelectedCard.Id);
+            CardHandler.DeleteCard(SelectedCard.Id);
             UpdateCardList();
             ClearAllCreateCardFields();
         }
@@ -207,7 +207,7 @@ namespace CardCreatorFin.ViewModel
 
         private void UpdateCardList()
         {
-            CardList = new ObservableCollection<Card>(CardCreator.GetCardList());
+            CardList = new ObservableCollection<Card>(CardHandler.GetCardList());
         }
         private bool CheckIfAttackPowerIsValid(int attackpower, Type1 selectedType)
         {

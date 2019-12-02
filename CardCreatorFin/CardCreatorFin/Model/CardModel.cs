@@ -13,11 +13,12 @@ namespace CardCreatorFin.Model
         // Create Card
         public System.Collections.ObjectModel.ObservableCollection<Card> _cardList;
 
+        public System.Collections.ObjectModel.ObservableCollection<Type1> _typeList;
         public Card SelectedCardId { get; set; }
 
         public string NameText { get; set; }
 
-        public System.Collections.ObjectModel.ObservableCollection<Type1> _typeList;
+
 
         // Image
         public string ImageSourceText { get; set; }
